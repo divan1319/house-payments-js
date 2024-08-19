@@ -9,17 +9,17 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "cockroachdb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        BigInt      @id @default(autoincrement())
   name      String
   email     String   @unique
   cel       Int      @unique
   password  String
-  rolId     Int
+  rolId     BigInt
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -30,14 +30,14 @@ model User {
 }
 
 model Roles {
-  id        Int      @id @default(autoincrement())
+  id        BigInt      @id @default(autoincrement())
   rol       String
   createdAt DateTime @default(now())
   user     User[]
 }
 
 model Sendas {
-  id        Int      @id @default(autoincrement())
+  id        BigInt      @id @default(autoincrement())
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -46,7 +46,7 @@ model Sendas {
 }
 
 model Poligonos {
-  id        Int      @id @default(autoincrement())
+  id        BigInt      @id @default(autoincrement())
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -55,11 +55,11 @@ model Poligonos {
 }
 
 model Houses {
-  id         Int      @id @default(autoincrement())
+  id         BigInt      @id @default(autoincrement())
   number     Int
-  userId     Int
-  sendaId    Int?
-  poligonoId Int?
+  userId     BigInt
+  sendaId    BigInt?
+  poligonoId BigInt?
   quota      Decimal  @db.Decimal(8, 2)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -72,9 +72,9 @@ model Houses {
 }
 
 model Payments {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  houseId   Int
+  id        BigInt      @id @default(autoincrement())
+  userId    BigInt
+  houseId   BigInt
   total     Decimal  @db.Decimal(8, 2)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
